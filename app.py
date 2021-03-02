@@ -8,9 +8,11 @@ db = SQLAlchemy()
 app = Flask(__name__)
 
 # Import blueprints
+from routes.client import client as Blueprint
 from routes.admin import admin as AdminBlueprint
 from routes.subscription import subscription as SubscriptionBlueprint
 
+app.register_blueprint(Blueprint)
 app.register_blueprint(AdminBlueprint)
 app.register_blueprint(SubscriptionBlueprint)
 
