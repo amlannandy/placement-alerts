@@ -14,3 +14,11 @@ class Subscriber(db.Model):
   def __init__(self, name, email):
     self.name = name
     self.email = email
+
+  def to_json(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'email': self.email,
+      'created_at': self.created_at,
+    }

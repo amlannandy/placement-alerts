@@ -1,7 +1,10 @@
+import sys
+sys.path.append('..')
+
 from flask import Blueprint, jsonify, request
 
-from ..models.Subscriber import Subscriber
-from ..helpers.subscription import find_by_email, save
+from models.Subscriber import Subscriber
+from helpers.subscription import find_by_email, save
 
 subscription = Blueprint('subscription', __name__, url_prefix='/subscription')
 
@@ -47,4 +50,5 @@ def subscribe_new_user():
     'success': True,
     'msg': 'Successfully subscribed to mailing list'
   }
+  return jsonify(response), 200
   
