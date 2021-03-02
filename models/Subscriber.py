@@ -1,6 +1,9 @@
+import sys
+sys.path.append('..')
+
 from datetime import datetime
 
-from .. import db
+from app import db
 
 class Subscriber(db.Model):
   id = db.Column(db.Integer, primary_key=True)
