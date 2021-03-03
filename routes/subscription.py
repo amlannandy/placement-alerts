@@ -37,17 +37,22 @@ class SubscriptionForm(Form):
     
     return render_template('subscribe.html', form=form)
 
-@subscription.route('/unsubscribe/<email>', methods=['GET', 'POST'])
-def open_unsubscribe_page(email):
+class UnsubscriptionForm(Form):
+  email = TextField('Email', validators=[validators.required(), validators.Length(min=6, max=35)])
 
-  if request.method == 'POST':
+  # Open unsubscribe page
+  @subscription.route('/unsubscribe/', methods=['GET', 'POST'])
+  def open_unsubscribe_page():
+    form = UnsubscriptionForm(request.form)
 
-    # Check if a subsriber with that email exists
-    subscriber = find_by_email(email)
-    if not subscriber:
-      flash('Oops! Looks like you have already unsubscribed', 'warning')
-    else:
-      delete_by_email(email)
-      flash('Success! You will no longer get these emails', 'success')
-  
-  return render_template('unsubscribe.html')
+    if request.method == 'POST':
+      email=request.form['email']
+      # Check if a subsriber with that email exists
+      subscriber = find_by_email(email)
+      if not subscriber:
+        flash('Oops! Looks like you have already unsubscribed', 'warning')
+      else:
+        delete_by_email(email)
+        flash('Success! You will no longer get these emails', 'success')
+    
+    return render_template('unsubscribe.html', form=form)

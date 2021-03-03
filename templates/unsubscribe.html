@@ -19,7 +19,7 @@
     <title>Placement Alerts</title>
   </head>
   <body>
-    <div class="bg-danger text-center text-white p-4">
+    <div class="bg-primary text-center text-white p-4">
       <h1 class="display-4">Placement Alerts</h1>
       <p class="lead">
         Register here to get regular updates on Campus Placement Oppurtunities
@@ -44,11 +44,16 @@
             {% endfor %} {% endif %} {% endwith %}
           </div>
           <form action="" role="form" method="POST">
-            <p class="lead text-center">
-              Please click this button to unsubscribe from the mailing list
-            </p>
+            <p class="lead text-center">Please enter your email address</p>
+            <!-- Email -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+              </div>
+              <input name="email" required type="email" class="form-control" />
+            </div>
             <button type="submit" class="btn btn-outline-danger btn-block">
-              Unubscribe
+              Unsubscribe
             </button>
           </form>
         </div>

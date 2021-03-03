@@ -21,7 +21,6 @@ def send_article_email(recipients, article):
     title=article['title'],
     content=article['content'],
     url=article['url'],
-    email='amlannandy@gmail.com'
   )
   try:
     mail.send(msg)
