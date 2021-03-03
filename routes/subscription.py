@@ -6,6 +6,7 @@ from flask import Blueprint, request, render_template
 from wtforms import Form, TextField, validators
 
 from models.Subscriber import Subscriber
+from helpers.send_email import send_welcome_email
 from helpers.subscription import find_by_email, save, delete_by_email
 
 subscription = Blueprint('subscription', __name__)
@@ -31,6 +32,7 @@ class SubscriptionForm(Form):
       else:
         subscriber = Subscriber(name=name, email=email)
         save(subscriber)
+        send_welcome_email({ 'name': name, 'email': email })
         flash('Success! You have now subscribed to the mailing list', 'success')
     
     return render_template('subscribe.html', form=form)
@@ -48,4 +50,4 @@ def open_unsubscribe_page(email):
       delete_by_email(email)
       flash('Success! You will no longer get these emails', 'success')
   
-  return render_template('unsubscribe.html')  
+  return render_template('unsubscribe.html')
