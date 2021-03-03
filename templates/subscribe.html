@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+      crossorigin="anonymous"
+    />
+    <title>Placement Alerts</title>
+  </head>
+  <body>
+    <div class="bg-primary text-center text-white p-4">
+      <h1 class="display-4">Placement Alerts</h1>
+      <p class="lead">
+        Register here to get regular updates on Campus Placement Oppurtunities
+        via Newsletters
+      </p>
+    </div>
+    <div class="p-3 bg-dark">
+      <p class="lead text-white text-center">
+        For students of <br />
+        Trident Academy of Technology Bhubaneshwar
+      </p>
+    </div>
+    <div class="m-4">
+      <div class="d-flex justify-content-center">
+        <div class="col-lg-6">
+          <div>
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for message in messages %}
+            <div class="text-center alert alert-{{ message[0] }}">
+              {{ message[1] }}
+            </div>
+            {% endfor %} {% endif %} {% endwith %}
+          </div>
+          <form action="" role="form" method="POST">
+            <!-- Name -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Name</span>
+              </div>
+              <input name="name" required type="text" class="form-control" />
+            </div>
+            <!-- Email -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+              </div>
+              <input name="email" required type="email" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-outline-primary btn-block">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-6 text-center">
+        <p class="lead">
+          Created by <br />
+          <strong>Amlan Kumar Nandy</strong>
+        </p>
+        <p class="lead">
+          Support the project on <br />
+          <a
+            class="text-dark"
+            href="https://github.com/amlannandy/placement-alerts"
+            target="_"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
