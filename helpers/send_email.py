@@ -15,11 +15,16 @@ def send_welcome_email(user):
     print(err)
     raise ConnectionRefusedError 
 
-# def send_article_email(recipient, article, user):
-#   msg = Message(title, sender='alerts@placement.com', recipients=[recipient])
-#   msg.html = render_template(template, name='Amlan Singh', email='test@gmail.com')
-#   try:
-#     mail.send(msg)
-#   except ConnectionRefusedError as err:
-#     print(err)
-#     raise ConnectionRefusedError
+def send_article_email(recipients, article):
+  msg = Message(article['title'], sender='alerts@placement.com', bcc=recipients)
+  msg.html = render_template('article_email.html', 
+    title=article['title'],
+    content=article['content'],
+    url=article['url'],
+    email='amlannandy@gmail.com'
+  )
+  try:
+    mail.send(msg)
+  except ConnectionRefusedError as err:
+    print(err)
+    raise ConnectionRefusedError

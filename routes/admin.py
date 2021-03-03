@@ -5,23 +5,43 @@ from flask import Blueprint, jsonify
 
 from models.Subscriber import Subscriber
 from scripts.scrapper import extract_articles
+from helpers.send_email import send_article_email
+from helpers.admin import fetch_all_articles, save_article_from_json, find_by_title, fetch_all_user_emails, fetch_all_users
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/subscribers-list', methods=['GET'])
 def view_all_subscribers():
-  subscribers = Subscriber.query.order_by(Subscriber.created_at).all()
+  subscribers = fetch_all_users()
   response = {
     'success': True,
     'data': list(map(lambda s: s.to_json(), subscribers)),
   }
   return jsonify(response), 200
 
+@admin.route('/articles-list', methods=['GET'])
+def view_all_articles():
+  articles = fetch_all_articles()
+  response = {
+    'success': True,
+    'data': list(map(lambda a: a.to_json(), articles)),
+  }
+  return jsonify(response), 200
+
 @admin.route('/extract-data', methods=['GET'])
 def extract_data():
   articles = extract_articles()
+  user_emails = fetch_all_user_emails()
+  count = 0
+  for article in articles:
+    in_db = find_by_title(article['title'])
+    if not in_db:
+      count += 1
+      save_article_from_json(article)
+      send_article_email(user_emails, article)
+
   response = {
     'success': True,
-    'data': articles,
+    'msg': f'{count} new articles sent',
   }
   return jsonify(response), 200
