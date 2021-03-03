@@ -3,14 +3,14 @@ sys.path.append('..')
 
 from flask import Blueprint, jsonify
 
-from models.Subscriber import Subscriber
 from scripts.scrapper import extract_articles
 from helpers.send_email import send_article_email
-from helpers.admin import fetch_all_articles, save_article_from_json, find_by_title, fetch_all_user_emails, fetch_all_users
+from helpers.admin import admin_only, fetch_all_articles, save_article_from_json, find_by_title, fetch_all_user_emails, fetch_all_users
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/subscribers-list', methods=['GET'])
+@admin_only
 def view_all_subscribers():
   subscribers = fetch_all_users()
   response = {
@@ -20,6 +20,7 @@ def view_all_subscribers():
   return jsonify(response), 200
 
 @admin.route('/articles-list', methods=['GET'])
+@admin_only
 def view_all_articles():
   articles = fetch_all_articles()
   response = {
@@ -29,6 +30,7 @@ def view_all_articles():
   return jsonify(response), 200
 
 @admin.route('/extract-data', methods=['GET'])
+@admin_only
 def extract_data():
   articles = extract_articles()
   user_emails = fetch_all_user_emails()
