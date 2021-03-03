@@ -1,8 +1,7 @@
 import sys
-
-from flask.helpers import flash
 sys.path.append('..')
 
+from flask.helpers import flash
 from flask import Blueprint, request, render_template
 from wtforms import Form, TextField, validators
 
