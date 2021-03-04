@@ -3,6 +3,7 @@ from flask import Flask
 from dotenv import load_dotenv
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # Init db
 db = SQLAlchemy()
@@ -27,6 +28,13 @@ app.config.update(dict(
   MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
 ))
 mail = Mail(app)
+
+# Scheduler to scrape data every 24 hours
+from scripts.data_extraction import extract_data_from_source
+
+sched = BackgroundScheduler(daemon=True)
+sched.add_job(extract_data_from_source, 'interval', hours=24)
+sched.start()
 
 # Import blueprints
 from routes.admin import admin as AdminBlueprint
