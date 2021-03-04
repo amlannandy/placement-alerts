@@ -44,6 +44,6 @@ app.register_blueprint(AdminBlueprint)
 app.register_blueprint(SubscriptionBlueprint)
 
 # Setup and init db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db.init_app(app)
