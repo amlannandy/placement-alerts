@@ -25,7 +25,8 @@ app.config.update(dict(
   MAIL_USE_TLS = True,
   MAIL_USE_SSL = False,
   MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
-  MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
+  MAIL_PASSWORD = os.getenv('SENDGRID_API_KEY'),
+  MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER'),
 ))
 mail = Mail(app)
 
