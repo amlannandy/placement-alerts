@@ -36,7 +36,7 @@ def extract_data():
   user_emails = fetch_all_user_emails()
   count = 0
   for article in articles:
-    in_db = find_by_title(article['title'])
+    in_db = find_by_title(article['title'][:99])
     if not in_db:
       count += 1
       save_article_from_json(article)
