@@ -58,6 +58,6 @@ def find_by_title(title):
   return Article.query.filter_by(title=title).first()
 
 def save_article_from_json(json_article):
-  article = Article(title=json_article['title'][:99], content=json_article['content'], url=json_article['url'])
+  article = Article(title=json_article['title'][:99], content='', url='')
   db.session.add(article)
   db.session.commit()

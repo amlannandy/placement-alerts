@@ -7,9 +7,9 @@ from app import db
 
 class Article(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  title = db.Column(db.String, nullable=False, unique=True)
-  content = db.Column(db.String, nullable=False)
-  url = db.Column(db.String, nullable=False)
+  title = db.Column(db.String(100), nullable=False, unique=True)
+  content = db.Column(db.String(300), nullable=False)
+  url = db.Column(db.String(120), nullable=False)
   created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
   def __init__(self, title, content, url):
