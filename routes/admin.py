@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify
 
 from scripts.scrapper import extract_articles
 from helpers.send_email import send_article_email
-from helpers.admin import admin_only, fetch_all_articles, save_article_from_json, find_by_title, fetch_all_user_emails, fetch_all_users
+from helpers.admin import admin_only, fetch_all_articles, fetch_all_timestamps, save_article_from_json, find_by_title, fetch_all_user_emails, fetch_all_users, add_timestamp
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -41,9 +41,18 @@ def extract_data():
       count += 1
       save_article_from_json(article)
       send_article_email(user_emails, article)
-
+  add_timestamp(count)
   response = {
     'success': True,
     'msg': f'{count} new articles sent',
+  }
+  return jsonify(response), 200
+
+@admin.route('/timestamps')
+def view_all_timestamps():
+  timestamps = fetch_all_timestamps()
+  response = {
+    'success': True,
+    'data': list(map(lambda s: s.to_json(), timestamps)),
   }
   return jsonify(response), 200

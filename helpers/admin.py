@@ -7,6 +7,7 @@ from flask import request, jsonify
 
 from app import db
 from models.Article import Article
+from models.Timestamp import Timestamp
 from models.Subscriber import Subscriber
 
 # Use this decorator on routes which only admins should be able to access
@@ -60,4 +61,13 @@ def find_by_title(title):
 def save_article_from_json(json_article):
   article = Article(title=json_article['title'][:99], content='', url='')
   db.session.add(article)
+  db.session.commit()
+
+def fetch_all_timestamps():
+  return Timestamp.query.order_by(Timestamp.created_at).all()
+
+# For maintaining records of when the scheduler ran
+def add_timestamp(count):
+  timestamp = Timestamp(count=count)
+  db.session.add(timestamp)
   db.session.commit()
