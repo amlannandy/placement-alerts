@@ -10,6 +10,7 @@ You can subscribe to the service <a href="https://placement-alerts.herokuapp.com
 2. PostgreSQL - Serves as the database
 3. BeautifulSoup - Used to scrape data off the college website
 4. Sendinblue API - To send emails to the subscribers
+5. Bootstrap CDN - For styling purpose
 
 ## Local Development Setup
 
